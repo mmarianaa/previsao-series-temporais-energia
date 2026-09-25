@@ -1,0 +1,101 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "id": "285ddcef-87c9-4ff9-8694-0cf087e29539",
+   "metadata": {},
+   "source": [
+    "# ⚡Previsão de Demanda de Energia Elétrica: Séries Temporais e Regressão Avançada\n",
+    "\n",
+    "Este projeto apresenta uma abordagem quantitativa e preditiva para modelagem e previsão do consumo diário de energia elétrica, combinando técnicas estatísticas de análise de séries temporais e modelos de Machine Learning.\n",
+    "\n",
+    "## 🎯 Objetivos do Projeto\n",
+    "- Realizar a **Análise Exploratória de Dados (EDA)** e decomposição temporal em componentes de tendência, sazonalidades (anual e semanal) e ruído estocástico.\n",
+    "- Validar as propriedades de estacionariedade da série temporal por meio do **Teste de Dickey-Fuller Aumentado (ADF)**.\n",
+    "- Transformar a série em um problema de aprendizado supervisório por meio da **Engenharia de Features** (*lags*, estatísticas móveis e variáveis calendáricas).\n",
+    "- Treinar e comparar a performance preditiva entre modelos lineares regularizados (**Regressão Ridge**) e modelos de *Gradient Boosting* (**XGBoost**).\n",
+    "\n",
+    "---\n",
+    "\n",
+    "## 🔬 Metodologia e Modelagem Matemático-Estatística\n",
+    "\n",
+    "### 1. Decomposição Temporal\n",
+    "A série temporal $y_t$ foi formulada de forma aditiva:\n",
+    "$$y_t = T_t + S^{\\text{anual}}_t + S^{\\text{semanal}}_t + \\epsilon_t$$\n",
+    "\n",
+    "Onde $\\epsilon_t \\sim \\mathcal{N}(0, \\sigma^2)$ representa a flutuação estocástica do sistema.\n",
+    "\n",
+    "![Decomposição Temporal](decomposicao_serie_temporal.png)\n",
+    "\n",
+    "### 2. Teste de Estacionariedade\n",
+    "- **Estatística ADF**: $-0.5651$\n",
+    "- **p-valor**: $0.8786$ ($> 0.05$)\n",
+    "- **Conclusão**: Confirmação da não-estacionariedade da série original devido à presença de tendência determinística crescente.\n",
+    "\n",
+    "---\n",
+    "\n",
+    "## 📈 Resultados e Comparação de Modelos\n",
+    "\n",
+    "A avaliação dos modelos foi realizada no conjunto de teste (20% finais do histórico temporal) utilizando as métricas **RMSE**, **MAE** e **MAPE**:\n",
+    "\n",
+    "| Modelo | RMSE (MWh) | MAE (MWh) | MAPE (%) |\n",
+    "| :--- | :---: | :---: | :---: |\n",
+    "| **Regressão Ridge** | **8.651** | **7.130** | **3.25%** |\n",
+    "| **XGBoost Regressor** | 10.962 | 8.794 | 4.07% |\n",
+    "\n",
+    "![Comparação das Previsões](comparacao_previsoes_modelos.png)\n",
+    "\n",
+    "### Principais Conclusões:\n",
+    "1. A **Regressão Ridge** apresentou o melhor desempenho geral ($MAPE = 3.25\\%$), atingindo um limite de erro próximo à variância do ruído intrínseco do sistema ($\\sigma = 8.0$).\n",
+    "2. O modelo **XGBoost** demonstrou limitação típica no acompanhamento de tendências lineares contínuas sem a aplicação prévia de diferenciação na série.\n",
+    "\n",
+    "---\n",
+    "\n",
+    "## 🛠️ Tecnologias e Bibliotecas Utilizadas\n",
+    "- **Linguagem**: Python 3.x\n",
+    "- **Análise de Dados**: `pandas`, `numpy`\n",
+    "- **Análise Estatística**: `statsmodels`\n",
+    "- **Machine Learning**: `scikit-learn`, `xgboost`\n",
+    "- **Visualização**: `matplotlib`, `seaborn`\n",
+    "\n",
+    "---\n",
+    "\n",
+    "## 💻 Como Executar o Projeto\n",
+    "\n",
+    "1. Clone o repositório:\n",
+    "   ```bash\n",
+    "   git clone [https://github.com/SEU_USUARIO/projeto_series_temporais.git](https://github.com/mmarianaa/projeto_series_temporais.git)\n",
+    "   cd projeto_series_temporais"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "id": "0c91667c-a977-43a2-94b5-373cdb652230",
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3 (ipykernel)",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.13.15"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 5
+}
